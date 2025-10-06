@@ -69,6 +69,11 @@ export class AuthenticationService {
   }
 
   async refresh(userId: string, refreshToken: string) {
+    const findUser = await this.usersRepo.findOneBy({ id: userId });
+    if (!findUser) {
+      throw new UnauthorizedException('User not found');
+    }
+
     const findToken = await this.rtRepo.findOne({
       where: {
         user: {
