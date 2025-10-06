@@ -89,9 +89,13 @@ export class AuthenticationController {
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
+    const transformAccessToken = plainToInstance(LoginResponseDto, tokens, {
+      excludeExtraneousValues: true,
+    });
+
     res.json({
       status: 'OK',
-      accessToken: tokens.accessToken,
+      accessToken: transformAccessToken.accessToken,
     });
   }
 }
