@@ -7,6 +7,7 @@ import { RefreshToken } from 'src/core/database/refresh-token.entity';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { PassportModule } from '@nestjs/passport';
+import { JwtStrategy } from './strategies/jwt.strategy';
 
 @Module({
   imports: [
@@ -24,7 +25,8 @@ import { PassportModule } from '@nestjs/passport';
       }),
     }),
   ],
-  providers: [AuthenticationService],
+  providers: [AuthenticationService, JwtStrategy],
   controllers: [AuthenticationController],
+  exports: [JwtStrategy, PassportModule],
 })
 export class AuthenticationModule {}
