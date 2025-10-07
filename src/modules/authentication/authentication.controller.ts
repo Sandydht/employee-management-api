@@ -98,4 +98,20 @@ export class AuthenticationController {
       accessToken: transformAccessToken.accessToken,
     });
   }
+
+  @Post('logout')
+  @HttpCode(200)
+  logout(@Response() res) {
+    res.clearCookie('refreshToken', {
+      httpOnly: true,
+      sameSite: 'strict',
+      secure: false,
+      path: '/api/authentication/refresh',
+    });
+
+    res.json({
+      status: 'OK',
+      message: 'See you!',
+    });
+  }
 }
