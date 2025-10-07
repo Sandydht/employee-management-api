@@ -19,6 +19,9 @@ export class GetProfileResponseDto {
   birthDate: string;
 
   @Expose()
+  roles: string[];
+
+  @Expose()
   @Transform(({ value }) => (value ? dayjs(value).toISOString() : null))
   createdAt: string;
 
